@@ -1,8 +1,8 @@
 [English](./README.md) | 简体中文
 
-#emoji-line-break.js
+# emoji-line-break.js
 
-将带emoji表情的字符串分割成数组，目的是为了解决带emoji表情字符串在Canvas上绘制的换行问题。（示例参考：[https://yayure.github.io/emoji-line-break.js](https://yayure.github.io/emoji-line-break.js)）
+将带emoji表情的字符串分割成数组，目的是为了解决带emoji表情字符串在Canvas上绘制的换行问题。（[示例](https://yayure.github.io/emoji-line-break.js)）
 
 ## 安装
 ### Nodejs
@@ -31,9 +31,9 @@ emojiLineBreak(text[, options])
   - Type: `Object`
   - 分割字符串的配置。
 
-#### Options
+### Options
 
-##### lang (可选项)
+#### lang (可选项)
 - Type: `String`
 - Default: `zh`
 - Options:
@@ -42,7 +42,7 @@ emojiLineBreak(text[, options])
 
 设置使用的语言。
 
-##### wordBreak (可选项)
+#### wordBreak (可选项)
 - Type: `String`
 - Default: `break-all`
 - Options:
@@ -51,7 +51,7 @@ emojiLineBreak(text[, options])
 
 设置字符串超出容器宽度时的换行方式。
 
-##### fontWeight (可选项)
+#### fontWeight (可选项)
 - Type: `String`
 - Default: `normal`
 - Options:
@@ -61,7 +61,7 @@ emojiLineBreak(text[, options])
 
 设置字体粗细。
 
-##### fontFamily (可选项)
+#### fontFamily (可选项)
 - Type: `String`
 - Default: `sans-serif`
 - Options:
@@ -72,13 +72,13 @@ emojiLineBreak(text[, options])
 
 设置字体。
 
-##### fontSize (可选项)
+#### fontSize (可选项)
 - Type: `String|Number`
 - Default: `16px`
 
 设置字体大小。
 
-##### width (可选项)
+#### width (可选项)
 - Type: `String|Number`
 - Default: `500px`
 
