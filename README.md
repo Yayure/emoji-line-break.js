@@ -1,8 +1,8 @@
 English | [简体中文](./README.ZH-CN.md)
 
-#emoji-line-break.js
+# emoji-line-break.js
 
-Split emoji string into an array. The purpose is to solve the problem of line wrapping drawn on Canvas with emoji string. (demo: [https://yayure.github.io/emoji-line-break.js](https://yayure.github.io/emoji-line-break.js))
+Split emoji string into an array. The purpose is to solve the problem of line wrapping drawn on Canvas with emoji string. ([demo](https://yayure.github.io/emoji-line-break.js))
 
 ## Installation
 ### Nodejs
@@ -31,9 +31,9 @@ emojiLineBreak(text[, options]);
   - Type: `Object`
   - Split string configuration.
 
-#### Options
+### Options
 
-##### lang (optional)
+#### lang (optional)
 - Type: `String`
 - Default: `en`
 - Options:
@@ -42,7 +42,7 @@ emojiLineBreak(text[, options]);
 
 Set the language used.
 
-##### wordBreak (optional)
+#### wordBreak (optional)
 - Type: `String`
 - Default: `break-word`
 - Options:
@@ -51,7 +51,7 @@ Set the language used.
 
 Specify how to break lines within words.
 
-##### fontWeight (optional)
+#### fontWeight (optional)
 - Type: `String`
 - Default: `normal`
 - Options:
@@ -61,7 +61,7 @@ Specify how to break lines within words.
 
 Set the font weight.
 
-##### fontFamily (optional)
+#### fontFamily (optional)
 - Type: `String`
 - Default: `sans-serif`
 - Options:
@@ -72,13 +72,13 @@ Set the font weight.
 
 Set the font family.
 
-##### fontSize (optional)
+#### fontSize (optional)
 - Type: `String|Number`
 - Default: `16px`
 
 Set the font size.
 
-##### width (optional)
+#### width (optional)
 - Type: `String|Number`
 - Default: `500px`
 
