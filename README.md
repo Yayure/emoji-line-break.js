@@ -1,6 +1,7 @@
 English | [简体中文](./README.ZH-CN.md)
 
 # emoji-line-break.js
+[![Build Status](https://travis-ci.com/Yayure/emoji-line-break.js.svg?branch=master)](https://travis-ci.com/Yayure/emoji-line-break.js)
 
 Split emoji string into an array. The purpose is to solve the problem of line wrapping drawn on Canvas with emoji string. ([demo](https://yayure.github.io/emoji-line-break.js))
 

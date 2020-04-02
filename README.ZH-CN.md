@@ -1,6 +1,7 @@
 [English](./README.md) | 简体中文
 
 # emoji-line-break.js
+[![Build Status](https://travis-ci.com/Yayure/emoji-line-break.js.svg?branch=master)](https://travis-ci.com/Yayure/emoji-line-break.js)
 
 将带emoji表情的字符串分割成数组，目的是为了解决带emoji表情字符串在Canvas上绘制的换行问题。（[示例](https://yayure.github.io/emoji-line-break.js)）
 
