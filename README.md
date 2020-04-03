@@ -16,7 +16,7 @@ var emojiLineBreak = require('emoji-line-break');
 
 ### Browser
 ```html
-<script src="./dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.0.0/dist/emoji-line-break.min.js"></script>
 ```
 
 ## Usage
