@@ -30,7 +30,7 @@ emojiLineBreak(text[, options])
   - 要分割成数组的字符串。
 - **options** (可选项)
   - Type: `Object`
-  - 分割字符串的配置。详情配置请参考[options](#options)。
+  - 分割字符串的配置。详细配置请参考[options](#options)。
 
 ### 示例
 ```javascript
