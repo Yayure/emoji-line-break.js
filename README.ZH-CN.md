@@ -16,7 +16,7 @@ var emojiLineBreak = require('emoji-line-break');
 
 ### 浏览器
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.0.0/dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break/dist/emoji-line-break.min.js"></script>
 ```
 
 ## 用法
@@ -30,7 +30,37 @@ emojiLineBreak(text[, options])
   - 要分割成数组的字符串。
 - **options** (可选项)
   - Type: `Object`
-  - 分割字符串的配置。
+  - 分割字符串的配置。详情配置请参考[options](#options)。
+
+### 示例
+```javascript
+var text = `无论何时，我们的第一步总是从好奇心开始。
+
+不曾看过的风景，不曾听过的声音，不曾闻过的味道，不曾摸过的质感，不曾尝过的食物，以及不曾感受过的澎湃。
+
+在到达终点的时候，我们会想些什么呢？💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕`;
+
+console.log('result:', emojiLineBreak(text, {
+    lang: 'zh',
+    wordBreak: 'break-all',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: '16px',
+    width: '500px'
+}));
+```
+输出:
+```javascript
+result: [
+  '无论何时，我们的第一步总是从好奇心开始。',
+  '',
+  '不曾看过的风景，不曾听过的声音，不曾闻过的味道，不曾摸过的质感',
+  '，不曾尝过的食物，以及不曾感受过的澎湃。',
+  '',
+  '在到达终点的时候，我们会想些什么呢？💕💕💕💕💕💕💕💕💕',
+  '💕💕💕💕💕💕💕💕💕💕💕'
+]
+```
 
 ### Options
 
@@ -85,33 +115,6 @@ emojiLineBreak(text[, options])
 
 设置文本容器宽度。
 
-### Examples
-```javascript
-var text = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod veniam,☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕
-
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`;
-
-console.log('result:', emojiLineBreak(text, {
-    lang: 'en',
-    wordBreak: 'break-word',
-    fontWeight: 'normal',
-    fontFamily: 'sans-serif',
-    fontSize: '16px',
-    width: '500px'
-}));
-```
-输出:
-```javascript
-result: [
-  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do ',
-  'eiusmod veniam,☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕',
-  '☕☕☕☕☕☕☕☕☕',
-  '',
-  'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea ',
-  'commodo consequat.'
-]
-```
-
 ## License
 
-[MIT](https://opensource.org/licenses/MIT)
+[MIT](https://github.com/Yayure/emoji-line-break.js/blob/master/LICENSE)

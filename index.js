@@ -250,11 +250,11 @@ module.exports = function (text, options) {
     // if ((is_options && options.emojiRegex) || !langOpt.mainRegex) {
     if (!langOpt.mainRegex) {
         let emjDfStr = emojiRegex().toString();
-
-        langOpt.emojiRegex = new RegExp(emjDfStr, 'u');
-
         let regexMatch = /^\/(.*)\/[imgu]*$/;
         let mRegStr = regexMatch.exec(emjDfStr)[1] || '';
+
+        langOpt.emojiRegex = new RegExp(mRegStr, 'u');
+        
         let mRegStrBW = mRegStr + `|\\n|\\r|[^ \n\r\-]+( |$)`;
 
         langOpt.mainRegex = new RegExp(`(${mRegStr}|\\n|\\r|.)`, 'gmu');

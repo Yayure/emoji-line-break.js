@@ -16,7 +16,7 @@ var emojiLineBreak = require('emoji-line-break');
 
 ### Browser
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.0.0/dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break/dist/emoji-line-break.min.js"></script>
 ```
 
 ## Usage
@@ -30,7 +30,33 @@ emojiLineBreak(text[, options]);
   - The string to be split.
 - **options** (optional)
   - Type: `Object`
-  - Split string configuration.
+  - Split string configuration. Check out the available [options](#options).
+
+### Examples
+```javascript
+var text = `Lorem ipsum dolor sit amet,☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕
+
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`;
+
+console.log('result:', emojiLineBreak(text, {
+    lang: 'en',
+    wordBreak: 'break-word',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: '16px',
+    width: '500px'
+}));
+```
+output:
+```javascript
+result: [
+  'Lorem ipsum dolor sit amet,☕☕☕☕☕☕☕☕☕☕☕☕',
+  '☕☕☕☕☕☕☕☕☕☕☕☕☕',
+  '',
+  'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea ',
+  'commodo consequat.'
+]
+```
 
 ### Options
 
@@ -85,33 +111,7 @@ Set the font size.
 
 Set the width of the text container.
 
-### Examples
-```javascript
-var text = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod veniam,☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕
-
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`;
-
-console.log('result:', emojiLineBreak(text, {
-    lang: 'en',
-    wordBreak: 'break-word',
-    fontWeight: 'normal',
-    fontFamily: 'sans-serif',
-    fontSize: '16px',
-    width: '500px'
-}));
-```
-output:
-```javascript
-result: [
-  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do ',
-  'eiusmod veniam,☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕',
-  '☕☕☕☕☕☕☕☕☕',
-  '',
-  'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea ',
-  'commodo consequat.'
-]
-```
 
 ## License
 
-[MIT](https://opensource.org/licenses/MIT)
+[MIT](https://github.com/Yayure/emoji-line-break.js/blob/master/LICENSE)
