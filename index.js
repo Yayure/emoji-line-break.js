@@ -200,7 +200,7 @@ function linesBreakAll(text, langOpt) {
 
 module.exports = function (text, options) {
     if (text === undefined) return [];
-    
+
     if (typeof text === 'object' && !Array.isArray(options)) {
         options = text;
         text = '';
@@ -236,7 +236,7 @@ module.exports = function (text, options) {
 
         langOpt.unitBase = langOpt.source.unitBase[langOpt.fontWeight][langOpt.fontFamily];
 
-        let sourceExact= langOpt.source.exactRegex[langOpt.fontWeight][langOpt.fontFamily];
+        let sourceExact = langOpt.source.exactRegex[langOpt.fontWeight][langOpt.fontFamily];
         langOpt.exactRegex = [];
         for (let i = 0; i < sourceExact.length; i++) {
             langOpt.exactRegex.push({
@@ -255,7 +255,7 @@ module.exports = function (text, options) {
 
         langOpt.emojiRegex = new RegExp(mRegStr, 'u');
         
-        let mRegStrBW = mRegStr + `|\\n|\\r|[^ \n\r\-]+( |$)`;
+        let mRegStrBW = `${mRegStr}|\\n|\\r|[^ \n\r-]+( |$)`;
 
         langOpt.mainRegex = new RegExp(`(${mRegStr}|\\n|\\r|.)`, 'gmu');
         langOpt.mainRegexBW = new RegExp(`(${mRegStrBW}|.)`, 'gmu');
@@ -266,4 +266,4 @@ module.exports = function (text, options) {
     } else {
         return linesBreakAll(text, langOpt)
     }
-};
+}

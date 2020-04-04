@@ -1,7 +1,7 @@
 [English](./README.md) | 简体中文
 
 # emoji-line-break.js
-[![Build Status](https://travis-ci.com/Yayure/emoji-line-break.js.svg?branch=master)](https://travis-ci.com/Yayure/emoji-line-break.js)
+[![Build Status](https://travis-ci.com/Yayure/emoji-line-break.js.svg?branch=master)](https://travis-ci.com/Yayure/emoji-line-break.js) [![npm](https://img.shields.io/npm/v/emoji-line-break)](https://www.npmjs.com/package/emoji-line-break)
 
 将带emoji表情的字符串分割成数组，目的是为了解决带emoji表情字符串在Canvas上绘制的换行问题。（[示例](https://yayure.github.io/emoji-line-break.js)）
 
@@ -16,7 +16,7 @@ var emojiLineBreak = require('emoji-line-break');
 
 ### 浏览器
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break/dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.0.2/dist/emoji-line-break.min.js"></script>
 ```
 
 ## 用法

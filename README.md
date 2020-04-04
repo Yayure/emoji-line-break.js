@@ -1,7 +1,7 @@
 English | [简体中文](./README.ZH-CN.md)
 
 # emoji-line-break.js
-[![Build Status](https://travis-ci.com/Yayure/emoji-line-break.js.svg?branch=master)](https://travis-ci.com/Yayure/emoji-line-break.js)
+[![Build Status](https://travis-ci.com/Yayure/emoji-line-break.js.svg?branch=master)](https://travis-ci.com/Yayure/emoji-line-break.js) [![npm](https://img.shields.io/npm/v/emoji-line-break)](https://www.npmjs.com/package/emoji-line-break)
 
 Split emoji string into an array. The purpose is to solve the problem of line wrapping drawn on Canvas with emoji string. ([demo](https://yayure.github.io/emoji-line-break.js))
 
@@ -16,7 +16,7 @@ var emojiLineBreak = require('emoji-line-break');
 
 ### Browser
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break/dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.0.2/dist/emoji-line-break.min.js"></script>
 ```
 
 ## Usage

@@ -3,38 +3,38 @@ const webpack = require('webpack');
 const createBanner = require('create-banner');
 
 module.exports = {
-	mode: 'production',
-	entry: './index.js',
+    mode: 'production',
+    entry: './index.js',
 
-	output: {
-		filename: `emoji-line-break.min.js`,
-		path: path.resolve(__dirname, 'dist'),
-		library: 'emojiLineBreak',
-		libraryTarget: 'umd'
-	},
+    output: {
+        filename: `emoji-line-break.min.js`,
+        path: path.resolve(__dirname, 'dist'),
+        library: 'emojiLineBreak',
+        libraryTarget: 'umd'
+    },
 
-	plugins: [new webpack.BannerPlugin({
-	  banner: createBanner(),
-	  raw: true
-	})],
+    plugins: [new webpack.BannerPlugin({
+        banner: createBanner(),
+        raw: true
+    })],
 
-	module: {
-		rules: [
-			{
-				test: /.js$/,
-				loader: 'babel-loader',
+    module: {
+        rules: [
+            {
+                test: /.js$/,
+                loader: 'babel-loader',
 
-				options: {
-					presets: [
-						[
-							'@babel/preset-env',
-							{
-								exclude: ['@babel/plugin-transform-unicode-regex']
-							}
-						]
-					]
-				}
-			}
-		]
-	}
+                options: {
+                    presets: [
+                        [
+                            '@babel/preset-env',
+                            {
+                                exclude: ['@babel/plugin-transform-unicode-regex']
+                            }
+                        ]
+                    ]
+                }
+            }
+        ]
+    }
 };
