@@ -14,10 +14,14 @@
   },
   "keywords": [
     "emoji",
-    "spilt",
-    "line",
     "break",
-    "multi-line string"
+    "newline",
+    "line",
+    "linebreak",
+    "line-break",
+    "word",
+    "word-wrap",
+    "multi-line"
   ],
   "author": "Yayure",
   "license": "MIT",
