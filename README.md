@@ -13,6 +13,7 @@ npm install emoji-line-break
 ```javascript
 var emojiLineBreak = require('emoji-line-break');
 ```
+>You should **disable @babel/plugin-transform-unicode-regex** if you use babel to convert es6 to es5. ([e.g](./webpack.config.js#L32))
 
 ### Browser
 ```html

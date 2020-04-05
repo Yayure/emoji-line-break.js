@@ -1,6 +1,6 @@
 {
   "name": "emoji-line-break",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Split emoji text into multiple lines.",
   "main": "index.js",
   "scripts": {
