@@ -46,6 +46,60 @@ const i18n = {
     }
 }
 
+const supportCanvasOpt = {
+    fontSize: '16px',
+    fontFamily: 'sans-serif',
+    wordBreak: lang === 'en' ? 'break-word' : 'break-all',
+    fontWeight: 'normal',
+    width: '500px',
+    canvas2d: null,
+    mainRegex: null,
+    mainRegexBW: null
+}
+
+/** 提供canvas的情况 */
+function linesBreakAllCtx(text) {
+    let lines = [];
+    let index = 0;
+    let maxW = parseInt(supportCanvasOpt.width);
+
+    supportCanvasOpt.canvas2d.save();
+
+    supportCanvasOpt.canvas2d.font = `${supportCanvasOpt.fontWeight} ${supportCanvasOpt.fontSize} ${supportCanvasOpt.fontFamily}`;
+
+    text.replace(supportCanvasOpt.mainRegex, (p1) => {
+        !lines[index] && (lines[index] = { text: '', length: 0 });
+
+        let curW = supportCanvasOpt.canvas2d.measureText(p1);
+        
+        if (/\n|\r/.test(p1)) {
+            ++index
+            return ''
+        } else if (encodeURIComponent(p1) === '%E2%80%8B') {
+            p1 = '';
+            curW = 0;
+        }
+
+        let lineWidth = curW + lines[index].length;
+
+        if (lineWidth > maxW) {
+            ++index;
+            lines[index] = { text: p1, length: curW };
+        } else {
+            lines[index].text += p1;
+            lines[index].length = lineWidth;
+        }
+
+        return ''
+    });
+
+    supportCanvasOpt.canvas2d.restore();
+
+    return lines.map(item => item.text);    
+}
+
+
+/** 不提供canvas的情况 */
 function linesBreakWord(text, langOpt) {
     let lines = [];
     let index = 0;
@@ -54,7 +108,7 @@ function linesBreakWord(text, langOpt) {
     let maxW = parseInt(langOpt.width);
 
     text.replace(langOpt.mainRegexBW, (p1) => {
-        !lines[index] && (lines[index] = {text: '', length: 0});
+        !lines[index] && (lines[index] = { text: '', length: 0 });
 
         let exactRatio = 1;
         let countStr = p1;
@@ -142,10 +196,8 @@ function linesBreakWord(text, langOpt) {
         return ''
     });
 
-
     return lines.map(item => item.text);
 }
-
 
 function linesBreakAll(text, langOpt) {
     let lines = [];
@@ -155,7 +207,7 @@ function linesBreakAll(text, langOpt) {
     let maxW = parseInt(langOpt.width);
 
     text.replace(langOpt.mainRegex, (p1) => {
-        !lines[index] && (lines[index] = {text: '', length: 0});
+        !lines[index] && (lines[index] = { text: '', length: 0 });
 
         let exactRatio = 1;
         let curW = baseW;
@@ -191,6 +243,31 @@ function linesBreakAll(text, langOpt) {
 module.exports = function (text, options) {
     if (text === undefined) return [];
 
+    /** 传入canvas的情况 */
+    options && options.canvas2d && typeof options.canvas2d.measureText !== 'undefined'&& (supportCanvasOpt.canvas2d = options.canvas2d);
+    options && options.canvas2d === null && (supportCanvasOpt.canvas2d = null);    //清除原有的ctx
+    if (supportCanvasOpt.canvas2d) {
+        let emjDfStr = emojiRegex().toString();
+        let mRegStr = /^\/(.*)\/[imgu]*$/.exec(emjDfStr)[1] || '';
+        let mRegStrBW = `${mRegStr}|\\n|\\r|[^ \n\r-]+( |$)`;
+
+        options.fontSize && (supportCanvasOpt.fontSize = typeof options.fontSize === 'number' ? options.fontSize + 'px' : options.fontSize);
+        options.fontWeight && (supportCanvasOpt.fontWeight = options.fontWeight);
+        options.fontFamily && (supportCanvasOpt.fontFamily = options.fontFamily);
+        options.wordBreak && (supportCanvasOpt.wordBreak = options.wordBreak);
+        options.width && (supportCanvasOpt.width = options.width);
+
+        supportCanvasOpt.mainRegex = new RegExp(`(${mRegStr}|\\n|\\r|.)`, 'gmu');
+        supportCanvasOpt.mainRegexBW = new RegExp(`(${mRegStrBW}|.)`, 'gmu');
+
+        if (supportCanvasOpt.wordBreak === 'break-word') {
+            // return linesBreakAllCtx(text, options);
+        } else {
+            return linesBreakAllCtx(text, langOpt)
+        }
+    }
+
+    /** 未传入canvas的情况 */
     if (typeof text === 'object' && !Array.isArray(options)) {
         options = text;
         text = '';
@@ -240,8 +317,7 @@ module.exports = function (text, options) {
     // if ((is_options && options.emojiRegex) || !langOpt.mainRegex) {
     if (!langOpt.mainRegex) {
         let emjDfStr = emojiRegex().toString();
-        let regexMatch = /^\/(.*)\/[imgu]*$/;
-        let mRegStr = regexMatch.exec(emjDfStr)[1] || '';
+        let mRegStr = /^\/(.*)\/[imgu]*$/.exec(emjDfStr)[1] || '';
 
         langOpt.emojiRegex = new RegExp(mRegStr, 'u');
         

@@ -37,6 +37,23 @@
     #textarea {
         margin-top: 30px;
     }
+
+
+    .canvas2d-switch {
+        user-select: none;
+        display: flex;
+        align-items: center;
+    }
+    .canvas2d-switch .custom-control-label::after, .canvas2d-switch .custom-control-label::before  {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .canvas2d-switch .custom-control-input:checked~.custom-control-label::after {
+        background-color: #fff;
+        -webkit-transform: translateX(.75rem);
+        transform: translateX(.75rem) translateY(-50%);
+    }
 </style>
 </head>
 <body>
@@ -61,6 +78,15 @@
                 <textarea class="form-control" rows="9" id="textarea" placeholder="input your text in here"></textarea>
             </div>
             <div class="col-md-4 ui-options">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-prepend">
+                        <label class="input-group-text" for="lang">canvas2d</label>
+                    </span>
+                    <div class="custom-control custom-switch canvas2d-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                      <label class="custom-control-label" for="customSwitch1"></label>
+                    </div>
+                </div>
                 <div class="input-group input-group-sm">
                     <span class="input-group-prepend">
                         <label class="input-group-text" for="lang">lang</label>
