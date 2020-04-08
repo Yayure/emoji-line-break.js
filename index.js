@@ -47,7 +47,6 @@ const i18n = {
 }
 
 function linesBreakWord(text, langOpt) {
-    let result = [];
     let lines = [];
     let index = 0;
     let unitBase = langOpt.unitBase;
@@ -143,16 +142,12 @@ function linesBreakWord(text, langOpt) {
         return ''
     });
 
-    for (let i = 0; i < lines.length; i++) {
-        result.push(lines[i].text);
-    }
 
-    return result
+    return lines.map(item => item.text);
 }
 
 
 function linesBreakAll(text, langOpt) {
-    let result = [];
     let lines = [];
     let index = 0;
     let unitBase = langOpt.unitBase;
@@ -168,7 +163,7 @@ function linesBreakAll(text, langOpt) {
         if (/\n|\r/.test(p1)) {
             ++index
             return ''
-        } else if (langOpt.exactRegex.some(el => {exactRatio = el.ratio; return el.regex.test(p1); })) {
+        } else if (langOpt.exactRegex.some(el => { exactRatio = el.ratio; return el.regex.test(p1); })) {
             curW = baseW * exactRatio;
         } else if (langOpt.emojiRegex.test(p1)) {
             curW = unitBase.emojiRatio * baseW;
@@ -190,12 +185,7 @@ function linesBreakAll(text, langOpt) {
         return ''
     });
 
-
-    for (let i = 0; i < lines.length; i++) {
-        result.push(lines[i].text);
-    }
-
-    return result
+    return lines.map(item => item.text);
 }
 
 module.exports = function (text, options) {
@@ -238,12 +228,12 @@ module.exports = function (text, options) {
 
         let sourceExact = langOpt.source.exactRegex[langOpt.fontWeight][langOpt.fontFamily];
         langOpt.exactRegex = [];
-        for (let i = 0; i < sourceExact.length; i++) {
+        sourceExact.forEach(item => {
             langOpt.exactRegex.push({
-                ratio: sourceExact[i].ratio,
-                regex: new RegExp(sourceExact[i].regex) 
+                ratio: item.ratio,
+                regex: new RegExp(item.regex) 
             });
-        }
+        })
     }
 
     // 初始化字符串匹配正则及emoji正则
