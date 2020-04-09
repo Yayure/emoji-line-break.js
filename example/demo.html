@@ -26,6 +26,7 @@
         min-width: 85px;
     }
     .ui-options .btn {
+        width: 100%;
         white-space: nowrap;
     }
 
@@ -36,13 +37,17 @@
 
     #textarea {
         margin-top: 30px;
+        height: calc(100% - 32px);
     }
-
 
     .canvas2d-switch {
         user-select: none;
         display: flex;
         align-items: center;
+    }
+    .canvas2d-switch .custom-control-label {
+        margin-left: 18px;
+        zoom: 1.55;
     }
     .canvas2d-switch .custom-control-label::after, .canvas2d-switch .custom-control-label::before  {
         position: absolute;
@@ -53,6 +58,10 @@
         background-color: #fff;
         -webkit-transform: translateX(.75rem);
         transform: translateX(.75rem) translateY(-50%);
+    }
+
+    .ui-options .input-group-custom {
+        margin-top: 4px;
     }
 </style>
 </head>
@@ -75,16 +84,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <textarea class="form-control" rows="9" id="textarea" placeholder="input your text in here"></textarea>
+                <textarea class="form-control" rows="10" id="textarea" placeholder="input your text in here"></textarea>
             </div>
             <div class="col-md-4 ui-options">
                 <div class="input-group input-group-sm">
                     <span class="input-group-prepend">
                         <label class="input-group-text" for="lang">canvas2d</label>
                     </span>
-                    <div class="custom-control custom-switch canvas2d-switch">
-                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                      <label class="custom-control-label" for="customSwitch1"></label>
+                    <div class="custom-control custom-switch canvas2d-switch" data-toggle="tooltip" data-placement="right">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <label class="custom-control-label" for="customSwitch1" ></label>
                     </div>
                 </div>
                 <div class="input-group input-group-sm">
@@ -92,10 +101,10 @@
                         <label class="input-group-text" for="lang">lang</label>
                     </span>
                     <div class="btn-group btn-group-toggle" id="lang" data-toggle="buttons">
-                        <label class="btn btn-secondary btn-sm">
+                        <label class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="bottom">
                             <input type="radio" name="options" value="zh"> zh
                         </label>
-                        <label class="btn btn-secondary btn-sm">
+                        <label class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="bottom">
                             <input type="radio" name="options" value="en"> en
                         </label>
                     </div>
@@ -129,6 +138,9 @@
                         </label>
                     </div>
                 </div>
+                <div class="input-group input-group-sm input-group-custom" style="display: none;">
+                    <input type="text" class="form-control custom-input" id="fontWeightCustom" value="" placeholder="">
+                </div>
                 <div class="input-group input-group-sm">
                     <span class="input-group-prepend">
                         <label class="input-group-text" for="fontFamily">fontFamily</label>
@@ -148,6 +160,9 @@
                         </label>
                     </div>
                 </div>
+                <div class="input-group input-group-sm input-group-custom" style="display: none;">
+                    <input type="text" class="form-control custom-input" id="fontFamilyCustom" value="" placeholder="">
+                </div>
                 <div class="input-group input-group-sm">
                     <span class="input-group-prepend">
                         <label class="input-group-text" for="fontSize">fontSize</label>
@@ -166,6 +181,12 @@
                         <span class="input-group-text">px</span>
                     </span>
                 </div>
+                <div class="input-group input-group-sm">
+                    <button type="button" class="btn btn-primary" id="fullver">Download Full Ver <small>(34.9kb)</small> </button>
+                </div>
+<!--                 <div class="input-group input-group-sm">
+                    <button type="button" class="btn btn-primary" id="canvas2dver">Download Canvas2d Ver <small>(18.2kb)</small> </button>
+                </div>  -->     
             </div>
         </div>
         <div class="row">
@@ -186,28 +207,58 @@
 <script type="text/javascript">
     "use strict";
 
+    let now = new Date();
+    let jetLag =now.getHours() - now.getUTCHours();
+    let lang = (jetLag === 8 || jetLag === -16) ? 'zh' : 'en';
+
     let model = {
-        defaultText: {
-            zh: `JavaScript ( JS ) 是一种具有函数优先的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web 页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕`,
-            en: `JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat. JavaScript is a prototype-based, multi-paradigm, single-threaded, dynamic language, supporting object-oriented, imperative, and declarative (e.g. functional programming) styles.☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕`
+        zh: {
+            defaultText: `JavaScript ( JS ) 是一种具有函数优先的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web 页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式风格。☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕`,
+            readme: 'https://github.com/Yayure/emoji-line-break.js/blob/master/README.ZH-CN.md',
+            lang_tips: '此选项在canvas2d启用时被禁用',
+            canvas_tips: '您须在此选项传入CanvasRenderingContext2D',
+            custom_holder: {
+                fontFamily: '自定义输入fontFamily',
+                fontWeight: '自定义输入fontWeight',
+            }
         },
-        readme: {
-            zh: 'https://github.com/Yayure/emoji-line-break.js/blob/master/README.ZH-CN.md',
-            en: 'https://github.com/Yayure/emoji-line-break.js/blob/master/README.md'
-        }
+        en: {
+            defaultText: `JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat. JavaScript is a prototype-based, multi-paradigm, single-threaded, dynamic language, supporting object-oriented, imperative, and declarative styles.☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕`,
+            readme: 'https://github.com/Yayure/emoji-line-break.js/blob/master/README.ZH-CN.md',
+            lang_tips: 'This option is disabled when using canvas2d',
+            canvas_tips: 'You should pass in CanvasRenderingContext2D in this option',
+            custom_holder: {
+                fontFamily: 'custom input fontFamily',
+                fontWeight: 'custom input fontWeight',
+            }
+        },
+        fullver: {
+            href: './js/emoji-line-break.min.js',
+            name: 'emoji-line-break.min.js'
+        },
+        canvas2dver: {
+            href: './js/emoji-line-break.canvas2d.min.js',
+            name: 'emoji-line-break.canvas2d.min.js'
+        },
     }
 
     let view = {
+        wrap: $('.ui-options'),
         allInput: $('input,textarea'),
         textarea: $('#textarea'),
         lang: $('#lang'),
         wordBreak: $('#wordBreak'),
         fontWeight: $('#fontWeight'),
+        fontWeightCustom: $('#fontWeightCustom'),
         fontFamily: $('#fontFamily'),
+        fontFamilyCustom: $('#fontFamilyCustom'),
         fontSize: $('#fontSize'),
         width: $('#width'),
         readmeLink: $('#readme'),
-        canvas: $('#canvas')
+        canvas: $('#canvas'),
+        canvas2d: $('#customSwitch1'),
+        fullver: $('#fullver'),
+        canvas2dver: $('#canvas2dver'),
     }
 
     let controller = {
@@ -216,36 +267,43 @@
 
             this.bindAllInput();
 
+            this.onCanvas2dChange();
+
             this.renderToCanvas();
+
+            this.bindDownload();
         },
         setDefault: function() {
-            let now = new Date();
-            let jetLag =now.getHours() - now.getUTCHours();
-            let lang = (jetLag === 8 || jetLag === -16) ? 'zh' : 'en';
+
+            view.textarea.val(model[lang].defaultText);
+            view.readmeLink.attr('href', model[lang].readme);
+            view.fontFamilyCustom.attr('placeholder', model[lang].custom_holder.fontFamily);
+            view.fontWeightCustom.attr('placeholder', model[lang].custom_holder.fontWeight);
+            view.canvas2d.parent().attr('data-original-title', model[lang].canvas_tips);
 
             if (lang === 'zh') {
-                view.textarea.val(model.defaultText.zh);
                 view.lang.find('input[value=zh]').attr('checked', true);
                 view.wordBreak.find('input[value=break-all]').attr('checked', true);
-                view.readmeLink.attr('href', model.readme.zh);
             } else {
-                view.textarea.val(model.defaultText.en);
                 view.lang.find('input[value=en]').attr('checked', true);
                 view.wordBreak.find('input[value=break-word]').attr('checked', true);
-                view.readmeLink.attr('href', model.readme.en);
             }
         },
         renderToCanvas: function(text) {
             text = text || view.textarea.val();
 
+            let is_canvas2d = view.canvas2d[0].checked;
+
             let options = {
+                canvas2d: is_canvas2d ? document.createElement('canvas').getContext("2d") : null,
                 lang: view.lang.find('input[checked]').val(),
                 wordBreak: view.wordBreak.find('input[checked]').val(),
-                fontWeight: view.fontWeight.find('input[checked]').val(),
-                fontFamily: view.fontFamily.find('input[checked]').val(),
-                fontSize: +view.fontSize.val(),
-                width: +view.width.val()
+                fontWeight: (is_canvas2d && view.fontWeightCustom.val().trim()) || view.fontWeight.find('input[checked]').val(),
+                fontFamily: (is_canvas2d && view.fontFamilyCustom.val().trim()) || view.fontFamily.find('input[checked]').val(),
+                fontSize: view.fontSize.val(),
+                width: view.width.val()
             }
+            is_canvas2d && delete options.lang;
 
             let ctx = view.canvas[0].getContext("2d");
             let lines = emojiLineBreak(text, options);
@@ -254,12 +312,13 @@
             view.canvas.attr('width', options.width);
             view.canvas.attr('height', baseH * (lines.length + 0.5));
 
-            ctx.restore();
-            ctx.font = `${options.fontWeight} ${options.fontSize}px ${options.fontFamily}`;
-
+            ctx.save();
+            ctx.font = `${options.fontWeight} ${isNaN(+options.fontSize) ? options.fontSize : options.fontSize + 'px'} ${options.fontFamily}`;
+            ctx.font = options.fontWeight + ' ' + (isNaN(+options.fontSize) ? options.fontSize : options.fontSize + 'px') + ' ' +options.fontFamily;
             lines.forEach((item, index) => {
                 ctx.fillText(item, 0, (index + 1) * baseH);
             })
+            ctx.restore();
 
             console.log('options:', options);
             console.log('reslut:', lines);
@@ -273,18 +332,71 @@
                     $(this).on('change',function(e) {
                         $(this).parents('.btn-group').find('input').removeAttr('checked');
                         $(this).attr('checked', true);
-                        
+
+                         $(this).parents('.input-group').next().find('.custom-input').val($(this).val());
+
                         that.renderToCanvas();
                     });
-                } else {
+                } else  {
                     $(this).on('input',function() {
                         that.renderToCanvas();
                     });
                 }
             })
+
+            $.merge(view.fontWeightCustom, view.fontFamilyCustom).on('input',function(e) {
+                let related = $(this).parents('.input-group').prev();
+                if ($(this).val().trim()) {
+                    related.find('.btn').removeClass('active');
+                } else {
+                    related.find('input[checked]').parents('.btn').addClass('active');
+                }
+            });
+        },
+        bindDownload: function() {
+            view.fullver.click(function() {
+                let a = document.createElement('a');
+                a.href = model.fullver.href;
+                a.download = model.fullver.name;
+                a.click();
+            });
+            view.canvas2dver.click(function() {
+                let a = document.createElement('a');
+                a.href = model.canvas2dver.href;
+                a.download = model.canvas2dver.name;
+                a.click();
+            });
+        },
+        onCanvas2dChange: function() {
+            view.canvas2d.change(function() {
+                let is_canvas2d = view.canvas2d[0].checked;
+
+                if (is_canvas2d) {
+                    view.lang.find('.btn').removeClass('active');
+                    view.lang.find('input').attr('disabled', true);
+                    
+                    view.lang.find('.btn').attr('data-original-title', model[lang].lang_tips);
+                    $('[data-toggle="tooltip"]').tooltip();
+
+                    view.fontWeightCustom.parents('.input-group').css('display', 'block');
+                    view.fontFamilyCustom.parents('.input-group').css('display', 'block');
+
+                    view.fontSize.parents('.input-group').find('.input-group-append').css('display', 'none');
+
+                } else {
+                    view.lang.find('input').attr('disabled', false);
+                    view.lang.find('input[checked]').parents('.btn').addClass('active');
+
+                    view.lang.find('.btn').removeAttr('data-original-title');
+
+                    view.fontWeightCustom.parents('.input-group').css('display', 'none');
+                    view.fontFamilyCustom.parents('.input-group').css('display', 'none');
+                }
+            });
         }
     }
 
     controller.init();
+    $('[data-toggle="tooltip"]').tooltip();
 </script>
 </html>
