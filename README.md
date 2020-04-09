@@ -65,7 +65,7 @@ result: [
 - Type: `CanvasRenderingContext2D`
 - Default: `null`
 
-In an environment that supports `Canvas`, you can provide [CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) to **support all languages**, improve line break precision and customize the values of [fontWeight](#fontweight-optional) and [fontWeight](#fontweight-optional).
+In an environment that supports `Canvas`, you can provide [CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) to **support all languages**, improve line break precision and customize the values of [fontWeight](#fontweight-optional) and [fontFamily](#fontfamily-optional).
 
 #### lang (optional)
 - Type: `String`
