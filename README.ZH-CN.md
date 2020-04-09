@@ -65,6 +65,12 @@ result: [
 
 ### Options
 
+#### canvas2d (可选项)
+- Type: `CanvasRenderingContext2D`
+- Default: `null`
+
+在支持canvas的环境下您可以提供[CanvasRenderingContext2D](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)以**支持全部语言**以及提升换行精度、自定义[fontWeight](#fontweight-可选项)与[fontFamily](#fontfamily-可选项)的值。
+
 #### lang (可选项)
 - Type: `String`
 - Default: `zh`
@@ -73,6 +79,7 @@ result: [
   - `zh`: 匹配并计算分割字符串中(**text**)的中文、中文基本标点符号及26个英文大小写字母和英文基本标点符号。
 
 设置使用的语言。
+>当提供[canvas2d](#canvas2d-可选项)选项时此选项会失效。
 
 #### wordBreak (可选项)
 - Type: `String`
@@ -92,6 +99,7 @@ result: [
   - `bold`: 较粗粗细。
 
 设置字体粗细。
+>当提供[canvas2d](#canvas2d-可选项)选项时此选项可以传入自定义值。
 
 #### fontFamily (可选项)
 - Type: `String`
@@ -103,18 +111,19 @@ result: [
   - ` cursive`: **cursive**字体。
 
 设置字体。
+>当提供[canvas2d](#canvas2d-可选项)选项时此选项可以传入自定义值。
 
 #### fontSize (可选项)
 - Type: `String|Number`
 - Default: `16px`
 
-设置字体大小。
+设置字体大小，单位只支持`px`。
 
 #### width (可选项)
 - Type: `String|Number`
 - Default: `500px`
 
-设置文本容器宽度。
+设置文本容器宽度，单位只支持`px`。
 
 ## License
 

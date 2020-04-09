@@ -342,7 +342,7 @@ module.exports = function (text, options) {
 
         let mRegStrBW = `${mRegStr}|\\n|\\r|[^ \n\r-]+(-| |$)`;
 
-        options.fontSize && (supportCanvasOpt.fontSize = isNaN(+options.fontSize) ? options.fontSize : options.fontSize + 'px');
+        options.fontSize && (supportCanvasOpt.fontSize = parseFloat(options.fontSize) + 'px');
         options.fontWeight && (supportCanvasOpt.fontWeight = options.fontWeight);
         options.fontFamily && (supportCanvasOpt.fontFamily = options.fontFamily);
         options.wordBreak && (supportCanvasOpt.wordBreak = options.wordBreak);

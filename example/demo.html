@@ -216,7 +216,7 @@
             defaultText: `JavaScript ( JS ) 是一种具有函数优先的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web 页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式风格。☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕`,
             readme: 'https://github.com/Yayure/emoji-line-break.js/blob/master/README.ZH-CN.md',
             lang_tips: '此选项在canvas2d启用时被禁用',
-            canvas_tips: '您须在此选项传入CanvasRenderingContext2D',
+            canvas_tips: '您可以在此选项传入CanvasRenderingContext2D',
             custom_holder: {
                 fontFamily: '自定义输入fontFamily',
                 fontWeight: '自定义输入fontWeight',
@@ -226,7 +226,7 @@
             defaultText: `JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat. JavaScript is a prototype-based, multi-paradigm, single-threaded, dynamic language, supporting object-oriented, imperative, and declarative styles.☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕`,
             readme: 'https://github.com/Yayure/emoji-line-break.js/blob/master/README.ZH-CN.md',
             lang_tips: 'This option is disabled when using canvas2d',
-            canvas_tips: 'You should pass in CanvasRenderingContext2D in this option',
+            canvas_tips: 'You can pass in CanvasRenderingContext2D in this option',
             custom_holder: {
                 fontFamily: 'custom input fontFamily',
                 fontWeight: 'custom input fontWeight',
@@ -263,6 +263,8 @@
 
     let controller = {
         init: function() {
+            $('[data-toggle="tooltip"]').tooltip();
+
             this.setDefault();
 
             this.bindAllInput();
@@ -313,8 +315,8 @@
             view.canvas.attr('height', baseH * (lines.length + 0.5));
 
             ctx.save();
-            ctx.font = `${options.fontWeight} ${isNaN(+options.fontSize) ? options.fontSize : options.fontSize + 'px'} ${options.fontFamily}`;
-            ctx.font = options.fontWeight + ' ' + (isNaN(+options.fontSize) ? options.fontSize : options.fontSize + 'px') + ' ' +options.fontFamily;
+            ctx.font = `${options.fontWeight} ${parseFloat(options.fontSize) + 'px'} ${options.fontFamily}`;
+
             lines.forEach((item, index) => {
                 ctx.fillText(item, 0, (index + 1) * baseH);
             })
@@ -333,7 +335,9 @@
                         $(this).parents('.btn-group').find('input').removeAttr('checked');
                         $(this).attr('checked', true);
 
-                         $(this).parents('.input-group').next().find('.custom-input').val($(this).val());
+                        if (view.canvas2d[0].checked) {
+                            $(this).parents('.input-group').next().find('.custom-input').val($(this).val());
+                        }
 
                         that.renderToCanvas();
                     });
@@ -378,10 +382,14 @@
                     view.lang.find('.btn').attr('data-original-title', model[lang].lang_tips);
                     $('[data-toggle="tooltip"]').tooltip();
 
-                    view.fontWeightCustom.parents('.input-group').css('display', 'block');
-                    view.fontFamilyCustom.parents('.input-group').css('display', 'block');
 
-                    view.fontSize.parents('.input-group').find('.input-group-append').css('display', 'none');
+                    let related = $.merge(view.fontWeightCustom, view.fontFamilyCustom).parents('.input-group');
+                    related.css('display', 'block');
+                    related.each(function() {
+                        if ($(this).find('input').val()) {
+                            $(this).prev().find('input[checked]').parents('.btn').removeClass('active');
+                        }
+                    });
 
                 } else {
                     view.lang.find('input').attr('disabled', false);
@@ -389,14 +397,15 @@
 
                     view.lang.find('.btn').removeAttr('data-original-title');
 
-                    view.fontWeightCustom.parents('.input-group').css('display', 'none');
-                    view.fontFamilyCustom.parents('.input-group').css('display', 'none');
+                    let related = $.merge(view.fontWeightCustom, view.fontFamilyCustom).parents('.input-group');
+                    related.css('display', 'none');
+                    related.prev().find('input[checked]').parents('.btn').addClass('active');
+
                 }
             });
         }
     }
 
     controller.init();
-    $('[data-toggle="tooltip"]').tooltip();
 </script>
 </html>

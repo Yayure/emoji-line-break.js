@@ -61,6 +61,12 @@ result: [
 
 ### Options
 
+#### canvas2d (optional)
+- Type: `CanvasRenderingContext2D`
+- Default: `null`
+
+In an environment that supports `Canvas`, you can provide [CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) to **support all languages**, improve line break precision and customize the values of [fontWeight](#fontweight-optional) and [fontWeight](#fontweight-optional).
+
 #### lang (optional)
 - Type: `String`
 - Default: `en`
@@ -69,6 +75,7 @@ result: [
   - `zh`: Matches and calculates Chinese, Chinese basic punctuation characters, 26 English uppercase, lowercase letters and English basic punctuation characters in the split string(**text**).
 
 Set the language used.
+>This option will be invalid when the [canvas2d](#canvas2d-optional) option is provided.
 
 #### wordBreak (optional)
 - Type: `String`
@@ -88,6 +95,7 @@ Specify how to break lines within words.
   - `bold`: Bold font weight.
 
 Set the font weight.
+>This option supports custom values when the [canvas2d](#canvas2d-optional) option is provided.
 
 #### fontFamily (optional)
 - Type: `String`
@@ -99,18 +107,19 @@ Set the font weight.
   - ` cursive`: **cursive** font family.
 
 Set the font family.
+>This option supports custom values when the [canvas2d](#canvas2d-optional) option is provided.
 
 #### fontSize (optional)
 - Type: `String|Number`
 - Default: `16px`
 
-Set the font size.
+Set the font size, only supports `px`.
 
 #### width (optional)
 - Type: `String|Number`
 - Default: `500px`
 
-Set the width of the text container.
+Set the width of the text container, only supports `px`.
 
 
 ## License
