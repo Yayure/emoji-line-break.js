@@ -40,14 +40,28 @@
 <body>
 </body>
 <script type="text/javascript">
+    let is_mobile = (() => {
+        if (typeof window !== 'undefined') {
+            /** 浏览器判断 */
+            return /Mobile/img.test(window.navigator.appVersion) && !/win|mac/img.test(window.navigator.platform);
+        } else if (typeof wx !== 'undefined' && wx.getSystemInfoSync) {
+            /** 微信小程序判断 */
+            return /android|ios/img.test(wx.getSystemInfoSync().platform);
+        }
+        return false;
+    })();
+
     function generateDownloadLink(filename, text, type) {
         let element = document.createElement('a');
         let prefix = FILETYPE === 'esm' ? '"use strict";export default ' : '"use strict";module.exports = ';
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(prefix + text));
 
         filename = filename.replace(/.js/, (p1) => {
-            let _prefix = FILETYPE === 'esm' ? '.esm' : '.common'
-            return _prefix + p1
+            let _prefix = is_mobile ? '.mobile' : '';
+
+            _prefix += FILETYPE === 'esm' ? '.esm' : '.common';
+            
+            return _prefix + p1;
         })
 
         element.setAttribute('download', filename);
@@ -72,8 +86,8 @@
                 return p1 + p2
             }, '')
             exactRegex.push({
-                ratio: +item,
-                regex: `[${regExStr}]`
+                T: +item,
+                R: `[${regExStr}]`
             });
         }
 
@@ -163,7 +177,7 @@
 
                 !result[fw] && (result[fw] = {})
 
-                result[fw][fm] = generateExactRegex(ratset).filter(item => item.ratio !== 1)
+                result[fw][fm] = generateExactRegex(ratset).filter(item => item.T !== 1)
             })
         })
         

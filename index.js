@@ -10,6 +10,16 @@ const exactRegexEN = require('./src/exact-regex.en.common.js');
 let now = new Date();
 let jetLag = now.getHours() - now.getUTCHours();
 let lang = (jetLag === 8 || jetLag === -16) ? 'zh' : 'en';
+let is_mobile = (() => {
+    if (typeof window !== 'undefined') {
+        /** 浏览器判断 */
+        return /Mobile/img.test(window.navigator.appVersion) && !/win|mac/img.test(window.navigator.platform);
+    } else if (typeof wx !== 'undefined' && wx.getSystemInfoSync) {
+        /** 微信小程序判断 */
+        return /android|ios/img.test(wx.getSystemInfoSync().platform);
+    }
+    return false;
+})();
 
 const i18n = {
     zh: {
