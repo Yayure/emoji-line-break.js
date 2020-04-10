@@ -51,28 +51,26 @@
         return false;
     })();
 
-    function generateDownloadLink(filename, text, type) {
+    function generateDownloadLink(filename, text, lang) {
         let element = document.createElement('a');
-        let prefix = FILETYPE === 'esm' ? '"use strict";export default ' : '"use strict";module.exports = ';
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(prefix + text));
+        let fileFix = FILETYPE === 'esm' ? '"use strict";export default ' : '"use strict";module.exports = ';
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileFix + text));
 
         filename = filename.replace(/.js/, (p1) => {
-            let _prefix = is_mobile ? '.mobile' : '';
+            let prefix = '';
 
-            _prefix += FILETYPE === 'esm' ? '.esm' : '.common';
+            prefix += (is_mobile ? '.mobile' : '');
+            prefix += '.' + lang;
+            prefix += (FILETYPE === 'esm' ? '.esm' : '.common');
             
-            return _prefix + p1;
+            return prefix + p1;
         })
 
         element.setAttribute('download', filename);
 
         element.innerText = 'Download ' + filename;
-        // element.style.display = 'none';
+        
         document.body.appendChild(element);
-
-        // element.click();
-
-        // document.body.removeChild(element);
     }
 
     function generateExactRegex(set) {
@@ -85,10 +83,11 @@
 
                 return p1 + p2
             }, '')
-            exactRegex.push({
-                T: +item,
-                R: `[${regExStr}]`
-            });
+
+            let result = {}
+            result[KMAP.ratio] = +item;
+            result[KMAP.regex] = `[${regExStr}]`;
+            exactRegex.push(result);
         }
 
         return exactRegex
@@ -122,6 +121,23 @@
     let fontWeight= ['lighter', 'normal', 'bold'];
     let fontFamily= ['serif', 'sans-serif', 'Arial', 'cursive'];
 
+    /** /src/keymap.js */
+    const KMAP = {
+        ratio: 'T',
+        regex: 'R',
+        fontSize: 'Z',
+        baseWidth: 'W',
+        offset: 'O',
+        emojiRatio: 'J',
+        lighter: 'L',
+        normal: 'N',
+        bold: 'B',
+        serif: 'S',
+        Arial: 'A',
+        cursive: 'C',
+        'sans-serif': 'I'
+    }
+
     function generateUnitBase(lang) {
         let ctx = document.createElement('canvas').getContext("2d");
         let ctxOffset = document.createElement('canvas').getContext("2d");
@@ -137,19 +153,19 @@
 
                 let baseW = ctx.measureText(measureChar).width;
 
-                !result[fw] && (result[fw] = {})
+                !result[KMAP[fw]] && (result[KMAP[fw]] = {})
+                result[KMAP[fw]][KMAP[fm]] = {}
 
-                result[fw][fm] = {
-                    fontSize: baseFontSize,
-                    baseWidth: +baseW.toFixed(PRECISION),
-                    offset: +(ctxOffset.measureText(measureChar).width - baseW).toFixed(PRECISION),
-                    emojiRatio: +(ctx.measureText(BASECHAR.emoji).width / baseW).toFixed(PRECISION)
-                }
+                result[KMAP[fw]][KMAP[fm]][KMAP.fontSize] = baseFontSize;
+                result[KMAP[fw]][KMAP[fm]][KMAP.baseWidth] = +baseW.toFixed(PRECISION);
+                result[KMAP[fw]][KMAP[fm]][KMAP.offset] = +(ctxOffset.measureText(measureChar).width - baseW).toFixed(PRECISION);
+                result[KMAP[fw]][KMAP[fm]][KMAP.emojiRatio] = +(ctx.measureText(BASECHAR.emoji).width / baseW).toFixed(PRECISION);
+
             })
         })
        
         console.log(`unit-base-${lang}:`, result)
-        generateDownloadLink(`unit-base.${lang}.js`, JSON.stringify(result))
+        generateDownloadLink('unit-base.js', JSON.stringify(result), lang)
     }
 
 
@@ -175,14 +191,14 @@
                     ratset[itemrat].push(item)
                 });
 
-                !result[fw] && (result[fw] = {})
+                !result[KMAP[fw]] && (result[KMAP[fw]] = {})
 
-                result[fw][fm] = generateExactRegex(ratset).filter(item => item.T !== 1)
+                result[KMAP[fw]][KMAP[fm]] = generateExactRegex(ratset).filter(item => item[KMAP.ratio] !== 1)
             })
         })
         
         console.log(`exact-regex-${lang}:`, result)
-        generateDownloadLink(`exact-regex.${lang}.js`, JSON.stringify(result))
+        generateDownloadLink('exact-regex.js', JSON.stringify(result), lang)
 
     }
 

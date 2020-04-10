@@ -24,5 +24,8 @@ module.exports = {
             }
         }
     ],
+    "globals": {
+        "wx": "readonly"
+    },
     "ignorePatterns": ["dist/", "node_modules/"]
 };

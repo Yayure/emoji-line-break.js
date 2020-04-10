@@ -1,25 +1,31 @@
 "use strict";
 
 const emojiRegex = require('emoji-regex/es2015/index.js');
+const KMAP = require('./src/keymap.js');
 
-const unitBaseZH = require('./src/unit-base.zh.common.js');
-const exactRegexZH = require('./src/exact-regex.zh.common.js');
-const unitBaseEN = require('./src/unit-base.en.common.js');
-const exactRegexEN = require('./src/exact-regex.en.common.js');
+let unitBaseZH = null;
+let exactRegexZH = null;
+let unitBaseEN = null;
+let exactRegexEN = null;
+
+if ((typeof window !== 'undefined' && /Mobile/img.test(window.navigator.appVersion) && !/win|mac/img.test(window.navigator.platform))
+    || (typeof wx !== 'undefined' && wx.getSystemInfoSync && /android|ios/img.test(wx.getSystemInfoSync().platform))) {
+    /** moblie */
+    unitBaseZH = require('./src/unit-base.mobile.zh.common.js');
+    exactRegexZH = require('./src/exact-regex.mobile.zh.common.js');
+    unitBaseEN = require('./src/unit-base.mobile.en.common.js');
+    exactRegexEN = require('./src/exact-regex.mobile.en.common.js');
+} else {
+    /** pc, node or other */
+    unitBaseZH = require('./src/unit-base.zh.common.js');
+    exactRegexZH = require('./src/exact-regex.zh.common.js');
+    unitBaseEN = require('./src/unit-base.en.common.js');
+    exactRegexEN = require('./src/exact-regex.en.common.js');
+}
 
 let now = new Date();
 let jetLag = now.getHours() - now.getUTCHours();
 let lang = (jetLag === 8 || jetLag === -16) ? 'zh' : 'en';
-let is_mobile = (() => {
-    if (typeof window !== 'undefined') {
-        /** 浏览器判断 */
-        return /Mobile/img.test(window.navigator.appVersion) && !/win|mac/img.test(window.navigator.platform);
-    } else if (typeof wx !== 'undefined' && wx.getSystemInfoSync) {
-        /** 微信小程序判断 */
-        return /android|ios/img.test(wx.getSystemInfoSync().platform);
-    }
-    return false;
-})();
 
 const i18n = {
     zh: {
@@ -202,7 +208,7 @@ function linesBreakWord(text, langOpt) {
     let lines = [];
     let index = 0;
     let unitBase = langOpt.unitBase;
-    let baseW = unitBase.baseWidth + (parseFloat(langOpt.fontSize) - parseFloat(unitBase.fontSize)) * unitBase.offset;
+    let baseW = unitBase[KMAP.baseWidth] + (parseFloat(langOpt.fontSize) - parseFloat(unitBase[KMAP.fontSize])) * unitBase[KMAP.offset];
     let maxW = parseInt(langOpt.width);
 
     text.replace(langOpt.mainRegexBW, (p1) => {
@@ -219,10 +225,10 @@ function linesBreakWord(text, langOpt) {
         if (langOpt.emojiRegex.test(p1)) {
             let curW = baseW;
             countStr.replace(langOpt.mainRegex, (p2) => {
-                if (langOpt.exactRegex.some(el => {exactRatio = el.ratio; return el.regex.test(p2); })) {
+                if (langOpt.exactRegex.some(el => {exactRatio = el[KMAP.ratio]; return el[KMAP.regex].test(p2); })) {
                     curW = baseW * exactRatio;
                 } else if (langOpt.emojiRegex.test(p2)) {
-                    curW = unitBase.emojiRatio * baseW;
+                    curW = unitBase[KMAP.emojiRatio] * baseW;
                 } else if (encodeURIComponent(p2) === '%E2%80%8B') {
                     p2 = '';
                     curW = 0;
@@ -245,7 +251,7 @@ function linesBreakWord(text, langOpt) {
             let wordW = 0;
             let spaceW = 0;
             countStr.replace(langOpt.mainRegex, (p2) => {
-                if (langOpt.exactRegex.some(el => {exactRatio = el.ratio; return el.regex.test(p2); })) {
+                if (langOpt.exactRegex.some(el => { exactRatio = el[KMAP.ratio]; return el[KMAP.regex].test(p2); })) {
                     if (p2 === ' ') {
                         spaceW = baseW * exactRatio;
                     }
@@ -259,7 +265,7 @@ function linesBreakWord(text, langOpt) {
             if (wordW - spaceW > maxW) {
                 let curW = baseW;
                 countStr.replace(langOpt.mainRegex, (p2) => {
-                    if (langOpt.exactRegex.some(el => {exactRatio = el.ratio; return el.regex.test(p2); })) {
+                    if (langOpt.exactRegex.some(el => { exactRatio = el[KMAP.ratio]; return el[KMAP.regex].test(p2); })) {
                         curW = baseW * exactRatio;
                     } else if (encodeURIComponent(p2) === '%E2%80%8B') {
                         p2 = '';
@@ -301,7 +307,7 @@ function linesBreakAll(text, langOpt) {
     let lines = [];
     let index = 0;
     let unitBase = langOpt.unitBase;
-    let baseW = unitBase.baseWidth + (parseFloat(langOpt.fontSize) - parseFloat(unitBase.fontSize)) * unitBase.offset;
+    let baseW = unitBase[KMAP.baseWidth] + (parseFloat(langOpt.fontSize) - parseFloat(unitBase[KMAP.fontSize])) * unitBase[KMAP.offset];
     let maxW = parseInt(langOpt.width);
 
     text.replace(langOpt.mainRegex, (p1) => {
@@ -313,10 +319,10 @@ function linesBreakAll(text, langOpt) {
         if (/\n|\r/.test(p1)) {
             ++index
             return ''
-        } else if (langOpt.exactRegex.some(el => { exactRatio = el.ratio; return el.regex.test(p1); })) {
+        } else if (langOpt.exactRegex.some(el => { exactRatio = el[KMAP.ratio]; return el[KMAP.regex].test(p1); })) {
             curW = baseW * exactRatio;
         } else if (langOpt.emojiRegex.test(p1)) {
-            curW = unitBase.emojiRatio * baseW;
+            curW = unitBase[KMAP.emojiRatio] * baseW;
         } else if (encodeURIComponent(p1) === '%E2%80%8B') {
             p1 = '';
             curW = 0;
@@ -326,7 +332,7 @@ function linesBreakAll(text, langOpt) {
 
         if (lineWidth > maxW) {
             ++index;
-            lines[index] = {text: p1, length: curW};
+            lines[index] = { text: p1, length: curW };
         } else {
             lines[index].text += p1;
             lines[index].length = lineWidth;
@@ -364,7 +370,7 @@ module.exports = function (text, options) {
         if (supportCanvasOpt.wordBreak === 'break-word') {
             return linesBreakWordCtx(text, options);
         } else {
-            return linesBreakAllCtx(text, langOpt)
+            return linesBreakAllCtx(text, options)
         }
     }
 
@@ -384,11 +390,11 @@ module.exports = function (text, options) {
         options.wordBreak && (langOpt.wordBreak = options.wordBreak);
         
         // 参数校验
-        if (options.fontWeight && langOpt.source.unitBase[options.fontWeight] === undefined) {
+        if (options.fontWeight && langOpt.source.unitBase[KMAP[options.fontWeight]] === undefined) {
             console.error('Please enter a legal fontWeight. (lighter, normal or bold)')
             return
         }
-        if (options.fontFamily && langOpt.source.unitBase[langOpt.fontWeight][options.fontFamily] === undefined) {
+        if (options.fontFamily && langOpt.source.unitBase[KMAP[langOpt.fontWeight]][KMAP[options.fontFamily]] === undefined) {
             console.error('Please enter a legal fontFamily. (serif, sans-serif, Arial or cursive)')
             return
         }
@@ -402,15 +408,16 @@ module.exports = function (text, options) {
             options.fontWeight && (langOpt.fontWeight = options.fontWeight);
         }
 
-        langOpt.unitBase = langOpt.source.unitBase[langOpt.fontWeight][langOpt.fontFamily];
+        langOpt.unitBase = langOpt.source.unitBase[KMAP[langOpt.fontWeight]][KMAP[langOpt.fontFamily]];
 
-        let sourceExact = langOpt.source.exactRegex[langOpt.fontWeight][langOpt.fontFamily];
+        let sourceExact = langOpt.source.exactRegex[KMAP[langOpt.fontWeight]][KMAP[langOpt.fontFamily]];
+        // langOpt.exactRegex = sourceExact.map(item => item[KMAP.regex] = new RegExp(item[KMAP.regex]));
         langOpt.exactRegex = [];
         sourceExact.forEach(item => {
-            langOpt.exactRegex.push({
-                ratio: item.ratio,
-                regex: new RegExp(item.regex) 
-            });
+            let _nitem = {};
+            _nitem[KMAP.ratio] = item[KMAP.ratio];
+            _nitem[KMAP.regex] = new RegExp(item[KMAP.regex]);
+            langOpt.exactRegex.push(_nitem);
         })
     }
 
