@@ -1,4 +1,5 @@
 const assert = require('assert');
+// const emojiLineBreak = require('../src/index.js');
 const emojiLineBreak = require('../dist/emoji-line-break.min.js');
 
 describe('emojiLineBreak', function() {

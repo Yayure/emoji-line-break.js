@@ -148,13 +148,11 @@ function linesBreakAllCtx(text) {
 module.exports = function(text, options) {
     if (text === undefined) return [];
 
-    options && options.canvas2d && typeof options.canvas2d.measureText !== 'undefined' && (supportCanvasOpt.canvas2d = options.canvas2d);
-    /** set null to clear original canvas2d */
-    options && options.canvas2d === null && (supportCanvasOpt.canvas2d = null);
-
-    if (supportCanvasOpt.canvas2d !== null && !supportCanvasOpt.canvas2d) {
-        console.error('You must set the canvas2d option!');
-        return
+    if (options && (options.canvas2d && typeof options.canvas2d.measureText !== 'undefined' || options.canvas2d === null)) {
+        supportCanvasOpt.canvas2d = options.canvas2d;
+    } else {
+        console.error('You must pass CanvasRenderingContext2D to the canvas2d option!');
+        return []
     }
 
     if (supportCanvasOpt.canvas2d) {

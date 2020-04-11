@@ -63,12 +63,48 @@
     .ui-options .input-group-custom {
         margin-top: 4px;
     }
+
+
+    .ui-unit {
+        margin-left: -5px;
+    }
+    .ui-unit .input-group-prepend {
+        margin-left: 5px;
+    }
+    .ui-unit .input-group-prepend .input-group-text {
+        min-width: auto;
+    }
+
+    @media (max-width: 1200px) {
+        .ui-unit {
+            margin-bottom: -5px;
+        }
+        .ui-unit .form-control {
+            min-width: 150px;
+            margin-bottom: 5px;
+        }
+        .ui-unit .input-group-prepend, .ui-unit .input-group-append {
+            margin-bottom: 5px;
+        }
+        .ui-options .input-group-prepend .input-group-text {
+            min-width: 85px;
+        }
+    }
+    @media (max-width: 992px) {
+        .ui-unit .form-control {
+            min-width: 100px;
+        }
+
+        .ui-options .input-group-prepend .input-group-text {
+            min-width: 60px;
+        }
+    }
 </style>
 </head>
 <body>
     <header class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-              <a class="navbar-brand" href="https://github.com/Yayure/emoji-line-break.js">emoji-line-break.js<small class="h6">&ensp;v@latest</small></a>
+              <a class="navbar-brand" href="https://github.com/Yayure/emoji-line-break.js">emoji-line-break.js</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -92,11 +128,11 @@
                         <label class="input-group-text" for="lang">canvas2d</label>
                     </span>
                     <div class="custom-control custom-switch canvas2d-switch" data-toggle="tooltip" data-placement="right">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
                         <label class="custom-control-label" for="customSwitch1" ></label>
                     </div>
                 </div>
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm" style="display: none;">
                     <span class="input-group-prepend">
                         <label class="input-group-text" for="lang">lang</label>
                     </span>
@@ -115,7 +151,7 @@
                     </span>
                     <div class="btn-group btn-group-toggle" id="wordBreak" data-toggle="buttons">
                         <label class="btn btn-secondary btn-sm">
-                            <input type="radio" name="options" value="break-all"> break-all
+                            <input type="radio" name="options" value="break-all" checked> break-all
                         </label>
                         <label class="btn btn-secondary btn-sm">
                             <input type="radio" name="options" value="break-word"> break-word
@@ -138,7 +174,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="input-group input-group-sm input-group-custom" style="display: none;">
+                <div class="input-group input-group-sm input-group-custom">
                     <input type="text" class="form-control custom-input" id="fontWeightCustom" value="" placeholder="">
                 </div>
                 <div class="input-group input-group-sm">
@@ -160,10 +196,10 @@
                         </label>
                     </div>
                 </div>
-                <div class="input-group input-group-sm input-group-custom" style="display: none;">
+                <div class="input-group input-group-sm input-group-custom">
                     <input type="text" class="form-control custom-input" id="fontFamilyCustom" value="" placeholder="">
                 </div>
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm ui-unit">
                     <span class="input-group-prepend">
                         <label class="input-group-text" for="fontSize">fontSize</label>
                     </span>
@@ -171,22 +207,15 @@
                     <span class="input-group-append">
                         <span class="input-group-text">px</span>
                     </span>
-                </div>
-                <div class="input-group input-group-sm">
+
                     <span class="input-group-prepend">
                         <label class="input-group-text" for="width">width</label>
                     </span>
                     <input type="number" class="form-control" id="width" value="500" placeholder="">
                     <span class="input-group-append">
                         <span class="input-group-text">px</span>
-                    </span>
+                    </span>                        
                 </div>
-                <div class="input-group input-group-sm">
-                    <button type="button" class="btn btn-primary" id="fullver">Download Full Ver <small>(34.9kb)</small> </button>
-                </div>
-<!--                 <div class="input-group input-group-sm">
-                    <button type="button" class="btn btn-primary" id="canvas2dver">Download Canvas2d Ver <small>(18.2kb)</small> </button>
-                </div>  -->     
             </div>
         </div>
         <div class="row">
@@ -212,6 +241,8 @@
     let lang = (jetLag === 8 || jetLag === -16) ? 'zh' : 'en';
 
     let model = {
+        defaultText: `JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions.JavaScript ( JS ) 是一种具有函数优先的轻量级，解释型或即时编译型的编程语言。JavaScript® (часто просто JS) — это легковесный, интерпретируемый или JIT-компилируемый, объектно-ориентированный язык с функциями первого класса.JavaScript (JS) は軽量で、軽量なインタープリター型、あるいは実行時コンパイルされる、第一級関数を備えたプログラミング言語です。
+☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕`,
         zh: {
             defaultText: `JavaScript ( JS ) 是一种具有函数优先的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web 页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式风格。☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕💕`,
             readme: 'https://github.com/Yayure/emoji-line-break.js/blob/master/README.ZH-CN.md',
@@ -231,15 +262,7 @@
                 fontFamily: 'custom input fontFamily',
                 fontWeight: 'custom input fontWeight',
             }
-        },
-        fullver: {
-            href: './js/emoji-line-break.min.js',
-            name: 'emoji-line-break.min.js'
-        },
-        canvas2dver: {
-            href: './js/emoji-line-break.canvas2d.min.js',
-            name: 'emoji-line-break.canvas2d.min.js'
-        },
+        }
     }
 
     let view = {
@@ -277,7 +300,7 @@
         },
         setDefault: function() {
 
-            view.textarea.val(model[lang].defaultText);
+            view.textarea.val(model.defaultText);
             view.readmeLink.attr('href', model[lang].readme);
             view.fontFamilyCustom.attr('placeholder', model[lang].custom_holder.fontFamily);
             view.fontWeightCustom.attr('placeholder', model[lang].custom_holder.fontWeight);
@@ -285,10 +308,10 @@
 
             if (lang === 'zh') {
                 view.lang.find('input[value=zh]').attr('checked', true);
-                view.wordBreak.find('input[value=break-all]').attr('checked', true);
+                // view.wordBreak.find('input[value=break-all]').attr('checked', true);
             } else {
                 view.lang.find('input[value=en]').attr('checked', true);
-                view.wordBreak.find('input[value=break-word]').attr('checked', true);
+                // view.wordBreak.find('input[value=break-word]').attr('checked', true);
             }
         },
         renderToCanvas: function(text) {
@@ -382,6 +405,7 @@
                     view.lang.find('.btn').attr('data-original-title', model[lang].lang_tips);
                     $('[data-toggle="tooltip"]').tooltip();
 
+                    view.lang.parents('.input-group').css('display', 'none');
 
                     let related = $.merge(view.fontWeightCustom, view.fontFamilyCustom).parents('.input-group');
                     related.css('display', 'block');
@@ -396,6 +420,8 @@
                     view.lang.find('input[checked]').parents('.btn').addClass('active');
 
                     view.lang.find('.btn').removeAttr('data-original-title');
+
+                    view.lang.parents('.input-group').css('display', 'flex');
 
                     let related = $.merge(view.fontWeightCustom, view.fontFamilyCustom).parents('.input-group');
                     related.css('display', 'none');
