@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>emoji-line-break.js</title>
 <meta name="description" content="Split emoji text into multiple lines.">
 <meta name="keywords" content="emoji-line-break.js, emoji-line-break">
+<title>emoji-line-break.js</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <style type="text/css">
 
@@ -99,6 +99,14 @@
             min-width: 60px;
         }
     }
+    @media (max-width: 500px) {
+        .ui-unit .form-control {
+            min-width: 200px;
+        }
+        .ui-options .input-group-prepend .input-group-text {
+            min-width: 85px;
+        }
+    }
 </style>
 </head>
 <body>
@@ -127,7 +135,7 @@
                     <span class="input-group-prepend">
                         <label class="input-group-text" for="lang">canvas2d</label>
                     </span>
-                    <div class="custom-control custom-switch canvas2d-switch" data-toggle="tooltip" data-placement="right">
+                    <div class="custom-control custom-switch canvas2d-switch" data-toggle="tooltip" data-placement="top">
                         <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
                         <label class="custom-control-label" for="customSwitch1" ></label>
                     </div>
