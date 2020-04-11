@@ -1,5 +1,6 @@
 
-var emojiLineBreak = require('../index.js');
+var emojiLineBreak = require('../src/index.js');
+
 
 var text = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod veniam,☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕☕
 

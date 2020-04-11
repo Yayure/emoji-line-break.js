@@ -4,4 +4,5 @@ cache: npm
 script:
   - npm run lint
   - npm run build
+  - npm run build-canvas2d
   - npm test

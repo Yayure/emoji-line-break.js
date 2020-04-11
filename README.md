@@ -16,8 +16,14 @@ var emojiLineBreak = require('emoji-line-break');
 >You should **disable @babel/plugin-transform-unicode-regex** if you use babel to convert es6 to es5. ([e.g](./webpack.config.js#L32))
 
 ### Browser
+You can use the smaller version if you can provide [canvas2d](#canvas2d-optional). (`~14.6kb`)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.0.3/dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.canvas2d.min.js"></script>
+```
+
+Full ver. (`~62.7kb`)
+```html
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.min.js"></script>
 ```
 
 ## Usage
@@ -65,7 +71,8 @@ result: [
 - Type: `CanvasRenderingContext2D`
 - Default: `null`
 
-In an environment that supports `Canvas`, you can provide [CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) to **support all languages**, improve line break precision and customize the values of [fontWeight](#fontweight-optional) and [fontFamily](#fontfamily-optional).
+In an environment that supports `Canvas`, you can provide the [CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) to **support all languages**, improve line break precision and customize the values of [fontWeight](#fontweight-optional) and [fontFamily](#fontfamily-optional).
+>You must pass in the CanvasRenderingContext2D if you use the smaller version.
 
 #### lang (optional)
 - Type: `String`

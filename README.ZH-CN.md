@@ -16,8 +16,14 @@ var emojiLineBreak = require('emoji-line-break');
 >如果您使用babel将es6转换为es5则必须**禁用@babel/plugin-transform-unicode-regex**。（[例如](./webpack.config.js#L32)）
 
 ### 浏览器
+如果您可以提供[canvas2d](#canvas2d-可选项)，您可以使用这个更小的版本。（`~14.6kb`）
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.0.3/dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.canvas2d.min.js"></script>
+```
+
+完整版。（`~62.7kb`）
+```html
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.min.js"></script>
 ```
 
 ## 用法
@@ -69,7 +75,8 @@ result: [
 - Type: `CanvasRenderingContext2D`
 - Default: `null`
 
-在支持canvas的环境下您可以提供[CanvasRenderingContext2D](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)以**支持全部语言**以及提升换行精度、自定义[fontWeight](#fontweight-可选项)与[fontFamily](#fontfamily-可选项)的值。
+在支持`Canvas`的环境下您可以提供[CanvasRenderingContext2D](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)以**支持全部语言**以及提升换行精度、自定义[fontWeight](#fontweight-可选项)与[fontFamily](#fontfamily-可选项)的值。
+>如果您使用的是更小的版本，则必须要传入CanvasRenderingContext2D。
 
 #### lang (可选项)
 - Type: `String`

@@ -1,11 +1,12 @@
 {
   "name": "emoji-line-break",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Split emoji text into multiple lines.",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "mocha",
     "build": "webpack --config webpack.config.js",
+    "build-canvas2d": "webpack --config webpack.config.js --env.is_canvas2d",
     "lint": "eslint --fix *.js"
   },
   "repository": {
