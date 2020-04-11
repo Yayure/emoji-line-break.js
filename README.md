@@ -16,12 +16,12 @@ var emojiLineBreak = require('emoji-line-break');
 >You should **disable @babel/plugin-transform-unicode-regex** if you use babel to convert es6 to es5. ([e.g](./webpack.config.js#L32))
 
 ### Browser
-You can use the smaller version if you can provide [canvas2d](#canvas2d-optional). (`~14.6kb`)
+You can use the smaller version if you can provide [canvas2d](#canvas2d-optional). (`size~14.6kb`)
 ```html
 <script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.canvas2d.min.js"></script>
 ```
 
-Full ver. (`~62.7kb`)
+Full ver. (`size~62.7kb`)
 ```html
 <script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.min.js"></script>
 ```

@@ -16,12 +16,12 @@ var emojiLineBreak = require('emoji-line-break');
 >如果您使用babel将es6转换为es5则必须**禁用@babel/plugin-transform-unicode-regex**。（[例如](./webpack.config.js#L32)）
 
 ### 浏览器
-如果您可以提供[canvas2d](#canvas2d-可选项)，您可以使用这个更小的版本。（`~14.6kb`）
+如果您可以提供[canvas2d](#canvas2d-可选项)，可以使用这个更小的版本。（`size~14.6kb`）
 ```html
 <script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.canvas2d.min.js"></script>
 ```
 
-完整版。（`~62.7kb`）
+完整版。（`size~62.7kb`）
 ```html
 <script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.min.js"></script>
 ```
