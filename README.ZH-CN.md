@@ -18,12 +18,12 @@ var emojiLineBreak = require('emoji-line-break');
 ### 浏览器
 如果您可以提供[canvas2d](#canvas2d-可选项)，可以使用这个更小的版本。（`size~14.6kb`）
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.canvas2d.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.1/dist/emoji-line-break.canvas2d.min.js"></script>
 ```
 
 完整版。（`size~62.7kb`）
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.1/dist/emoji-line-break.min.js"></script>
 ```
 
 ## 用法

@@ -18,12 +18,12 @@ var emojiLineBreak = require('emoji-line-break');
 ### Browser
 You can use this smaller version if you can provide the [canvas2d](#canvas2d-optional). (`size~14.6kb`)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.canvas2d.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.1/dist/emoji-line-break.canvas2d.min.js"></script>
 ```
 
 Full ver. (`size~62.7kb`)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.0/dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.1/dist/emoji-line-break.min.js"></script>
 ```
 
 ## Usage
