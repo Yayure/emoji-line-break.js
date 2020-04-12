@@ -16,14 +16,14 @@ var emojiLineBreak = require('emoji-line-break');
 >You should **disable @babel/plugin-transform-unicode-regex** if you use babel to convert es6 to es5. ([e.g](./webpack.config.js#L42))
 
 ### Browser
-You can use this smaller version if you can provide the [canvas2d](#canvas2d-optional). (`size~14.6kb`)
+You can use this smaller version if you can provide the [canvas2d](#canvas2d-optional). (`size~15.3kb`)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.1/dist/emoji-line-break.canvas2d.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.2/dist/emoji-line-break.canvas2d.min.js"></script>
 ```
 
-Full ver. (`size~62.7kb`)
+Full ver. (`size~63.4kb`)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.1/dist/emoji-line-break.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emoji-line-break@1.1.2/dist/emoji-line-break.min.js"></script>
 ```
 
 ## Usage
@@ -128,7 +128,9 @@ Set the font size, only supports `px`.
 
 Set the width of the text container, only supports `px`.
 
+## Dependencies
+- [@mathiasbynens/emoji-regex](https://github.com/mathiasbynens/emoji-regex)
 
 ## License
 
-[MIT](https://github.com/Yayure/emoji-line-break.js/blob/master/LICENSE)
+[MIT](https://github.com/Yayure/emoji-line-break.js/blob/master/LICENSE) © Yayure
