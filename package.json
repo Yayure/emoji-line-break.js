@@ -22,7 +22,8 @@
     "line-break",
     "word",
     "word-wrap",
-    "multi-line"
+    "multi-line",
+    "overflow-wrap"
   ],
   "author": "Yayure",
   "license": "MIT",

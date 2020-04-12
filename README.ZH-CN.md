@@ -13,7 +13,7 @@ npm install emoji-line-break
 ```javascript
 var emojiLineBreak = require('emoji-line-break');
 ```
->如果您使用babel将es6转换为es5则必须**禁用@babel/plugin-transform-unicode-regex**。（[例如](./webpack.config.js#L32)）
+>如果您使用babel将es6转换为es5则必须**禁用@babel/plugin-transform-unicode-regex**。（[例如](./webpack.config.js#L42)）
 
 ### 浏览器
 如果您可以提供[canvas2d](#canvas2d-可选项)，可以使用这个更小的版本。（`size~14.6kb`）
